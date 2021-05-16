@@ -1,5 +1,5 @@
 require "test/unit"
-require_relative './tax'
+require_relative '../tax'
 
 class TaxTest < Test::Unit::TestCase
     
