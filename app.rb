@@ -1,14 +1,13 @@
-# app.rb
 require 'sinatra'
 require_relative './tax'
 require 'json'
+require_relative './models/payslip'
+require 'date'
+
 
 class PayslipApp < Sinatra::Base
 
-    # before do
-    #     request.body.rewind
-    #     @request_payload = JSON.parse request.body.read
-    # end
+    include Payslip
 
     before do
         content_type :json
@@ -16,7 +15,7 @@ class PayslipApp < Sinatra::Base
 
     get '/' do
         status 200
-        "Hello World"
+        Payslip.get(1).employee_name
     end
 
     post '/'do
@@ -24,17 +23,16 @@ class PayslipApp < Sinatra::Base
         annual_income = params[:salary]
 
         payslip = generate_monthly_payslip employee_name, annual_income.to_f
+        my_payslip = Payslip.new
+        my_payslip.time_stamp = Time.now.strftime("%d/%m/%Y %H:%M")
+        my_payslip.employee_name = params[:employee]
+        my_payslip.annual_salary = "$#{annual_income}"
+        my_payslip.monthly_income_tax = payslip['monthly_income_tax']
+        my_payslip.save
+
         payslip.to_json
     end
 
-
-# For Reference
-#   get '/:name' do
-#     "Hello, #{params[:name]}!"
-#   end
-
-#   get '/:greeting/?:name?' do
-#     "#{params[:greeting]}, #{params[:name] ? params[:name] : 'world'}!"
-#   end
+    
 
 end

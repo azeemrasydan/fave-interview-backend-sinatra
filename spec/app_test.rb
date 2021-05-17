@@ -17,7 +17,6 @@ class RootPostTest < Test::Unit::TestCase
     def test_get
         get '/'
         assert last_response.ok?
-        # assert_equal last_response.body[:employee_name], "Ren"
     end
 
     def test_post
