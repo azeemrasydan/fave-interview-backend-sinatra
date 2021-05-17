@@ -19,6 +19,7 @@ class RootPostTest < Test::Unit::TestCase
         assert last_response.ok?
     end
 
+
     def test_post
         mock_data = {
             "employee_name": "Ren",
@@ -29,5 +30,14 @@ class RootPostTest < Test::Unit::TestCase
         post '/?employee=Ren&salary=60000'
         assert last_response.ok?
         assert_equal last_response.body, mock_data.to_json
+    end
+
+    def test_get_salary_computations
+       
+        post '/?employee=Ren&salary=60000'
+        get '/salary/computations/2'
+        result_hash = JSON.parse(last_response.body)
+        assert last_response.ok?
+        assert_equal result_hash['salary_computations'][0]['monthly_income_tax'], "$500.00"
     end
 end
