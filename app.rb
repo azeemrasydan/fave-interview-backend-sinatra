@@ -33,6 +33,11 @@ class PayslipApp < Sinatra::Base
         payslip.to_json
     end
 
-    
+    get '/salary/computations/:id' do
+        value = Payslip.get(params[:id].to_i)
+        json_value = value.to_json(:only => [:time_stamp,:employee_name,:annual_salary,:monthly_income_tax])
+        result = Hash["salary_computations" => [JSON.parse(json_value)]]
+        result.to_json
+    end
 
 end
