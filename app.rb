@@ -18,6 +18,7 @@ class PayslipApp < Sinatra::Base
         Payslip.get(1).employee_name
     end
 
+    # query parameter only for post
     post '/'do
         employee_name = params[:employee]
         annual_income = params[:salary]
