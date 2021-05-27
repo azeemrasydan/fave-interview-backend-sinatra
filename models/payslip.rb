@@ -1,6 +1,6 @@
 require "datamapper"
 module Payslip
-    # DB Setup
+    # Singleton Design Pattern
     DataMapper.setup(:default, "sqlite3::memory:")
 
     # Models

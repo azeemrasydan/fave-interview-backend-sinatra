@@ -4,7 +4,7 @@ require 'json'
 require_relative './models/payslip'
 require 'date'
 
-
+# Abstract Factory Design Pattern
 class PayslipApp < Sinatra::Base
 
     include Payslip
